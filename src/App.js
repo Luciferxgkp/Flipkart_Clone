@@ -9,6 +9,7 @@ import ProductDetailPage from './containers/ProductDetailPage/ProductDetailPage'
 import CartPage from './containers/CartPage/CartPage';
 import { UpdateCart } from './actions/cart.action';
 import CheckoutPage from './containers/CheckoutPage/CheckoutPage';
+import Order from './containers/Order/Order';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path='/' exact component={HomePage}></Route>
           <Route path='/cart' component={CartPage}></Route>
           <Route path='/checkout' component={CheckoutPage}/>
+          <Route path='/account/orders' component={Order}></Route>
           <Route path='/:productSlug/:productId/p' component={ProductDetailPage}></Route>
           <Route path='/:slug' component={ProductListPage}></Route>
         </Switch>

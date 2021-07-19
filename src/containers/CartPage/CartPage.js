@@ -7,6 +7,7 @@ import { generatePublicUrl } from '../../urlconfig'
 import CartItem from './CartItems/CartItem'
 import {AddToCart,getCartItems} from '../../actions/cart.action'
 import {MaterialButton} from '../../components/MaterialUI/index'
+import PriceDetails from '../../components/PriceDetails'
 
 function CartPage(props) {
     const cart = useSelector(state => state.cart);
@@ -33,6 +34,21 @@ function CartPage(props) {
     useEffect(()=>{
         setCartItems(cart.cartItems);
     },[cart.cartItems]);
+    if(props.onlyCartItems){
+        return(
+            <>
+            {Object.keys(cartItems).map((key, index) =>
+                <CartItem
+                    key={index}
+                    cartItem={cartItems[key]}
+                    onQuantityInc = {onQuantityIncrement}
+                    onQuantityDec={onQuantityDecrement}
+                />
+            )}
+            </>
+        )
+    }
+
     return (
         <div>
             <Layout />
@@ -71,9 +87,15 @@ function CartPage(props) {
                         </div>
                     </div>
                 </Card >
-                <Card style={{ width: '398.63px' ,border:'1px solid #cecece'}}
-                    headerLeft={<div>Price</div>}
-                ></Card>
+                <PriceDetails
+                    totalItem={Object.keys(cart.cartItems).reduce(function(qty,key){
+                        return qty+cart.cartItems[key].qty;
+                    },0)}
+                    totalPrice={Object.keys(cart.cartItems).reduce((totalPrice,key)=>{
+                        const {price , qty} = cart.cartItems[key];
+                        return totalPrice+price*qty;
+                    },0)}
+                />
             </div>
         </div>
     )

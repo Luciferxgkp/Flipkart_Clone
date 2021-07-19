@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import './style.css';
 
-/**
-* @author Rizwan Khan
-* @function 
-**/
-
 const Modal = (props) => {
     if (!props.visible) {
         return null;
@@ -96,9 +91,11 @@ const DropdownMenu = (props) => {
                     {
                         props.menus && props.menus.map((item, index) =>
                             <li key={index}><a
-                                onClick={(e) => {
+                                onClick={(e) => {if(item.onClick){
+
                                     e.preventDefault();
                                     item.onClick && item.onClick()
+                                }
                                 }}
                                 href={item.href}>
                                 {item.label}</a></li>

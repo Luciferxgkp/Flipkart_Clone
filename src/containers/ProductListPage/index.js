@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../../components/Layout/index'
 import getParams from '../../utils/getParams'
+import ClothingAndAccessories from './ClothingAndAccessories/ClothingAndAccessories'
 import ProductPage from './ProductPage/ProductPage'
 import ProductStore from './ProductStore/productStore'
 import './style.css'
@@ -19,7 +20,7 @@ const ProductListPage = (props) => {
                 content = <ProductPage {...props}/>
                 break;
             default:
-                content = null;
+                content = <ClothingAndAccessories {...props}/>;
         }
         return content;
     }

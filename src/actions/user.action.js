@@ -35,7 +35,13 @@ export const addAddress = (payload) =>{
             const res = await axios.post('/user/address/create',{payload})
             dispatch({type: userConstants.ADD_USER_ADDRESS_REQUEST});
             if(res.status === 201){
-                console.log(res)
+                const {
+                  address :{address},
+                } = res.data;
+                dispatch({
+                  type: userConstants.ADD_USER_ADDRESS_SUCCESS,
+                  payload: {address},
+                })
             }
             else{
                 const { error} = res.data;
@@ -114,18 +120,18 @@ export const addOrder = (payload) => {
     return async (dispatch) => {
       try {
         const res = await axios.post(`/getOrder`, payload);
-        dispatch({ type: userConstants.GET_USER_ORDER_DETAILS_REQUEST });
+        dispatch({ type: userConstants.GET_USER_ORDER_REQUEST });
         if (res.status === 200) {
           console.log(res);
           const { order } = res.data;
           dispatch({
-            type: userConstants.GET_USER_ORDER_DETAILS_SUCCESS,
+            type: userConstants.GET_USER_ORDER_SUCCESS,
             payload: { order },
           });
         } else {
           const { error } = res.data;
           dispatch({
-            type: userConstants.GET_USER_ORDER_DETAILS_FAILURE,
+            type: userConstants.GET_USER_ADDRESS_FAILURE,
             payload: { error },
           });
         }
